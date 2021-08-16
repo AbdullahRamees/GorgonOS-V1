@@ -1,7 +1,7 @@
-OBJECTS = loader.o kmain.o
+OBJECTS = loader.o kmain.o common.o framebuffer.o io.o serial.o keyboard.o gdt.o memory_segments.o idt.o interrupt_handlers.o interrupts.o pic.o
 CC = gcc
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
-         -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
+CFLAGS = -m32 -nostdlib -fno-builtin -fno-stack-protector \
+         -Wno-unused -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c -masm=intel 
 LDFLAGS = -T link.ld -melf_i386
 AS = nasm
 ASFLAGS = -f elf
@@ -14,19 +14,21 @@ kernel.elf: $(OBJECTS)
 os.iso: kernel.elf
 	cp kernel.elf iso/boot/kernel.elf
 	genisoimage -R                              \
-                -b boot/grub/stage2_eltorito    \
-                -no-emul-boot                   \
-                -boot-load-size 4               \
-                -A os                           \
-                -input-charset utf8             \
-                -quiet                          \
-                -boot-info-table                \
-                -o os.iso                       \
-                iso
+            -b boot/grub/stage2_eltorito    \
+            -no-emul-boot                   \
+            -boot-load-size 4               \
+            -A os                           \
+            -input-charset utf8             \
+            -quiet                          \
+            -boot-info-table                \
+            -o os.iso                       \
+            iso
 
+
+#run: os.iso
+#	bochs -f bochsrc.txt -q
 run: os.iso
 	bochs -f bochsrc.txt -q
-
 %.o: %.c
 	$(CC) $(CFLAGS)  $< -o $@
 
@@ -35,4 +37,3 @@ run: os.iso
 
 clean:
 	rm -rf *.o kernel.elf os.iso
-
