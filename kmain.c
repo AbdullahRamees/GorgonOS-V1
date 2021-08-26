@@ -9,9 +9,8 @@
 
 char message[]= "Gorgon OS";
 
+
 int kmain(unsigned int ebx)
-{
-	
 	
 	fb_move_cursor(6*80);
 	fb_write_str(message,sizeof(message));
@@ -19,6 +18,7 @@ int kmain(unsigned int ebx)
 	segments_install_gdt();
 	interrupts_install_idt();
 	
+
 	init();
     	
   	multiboot_info_t *mbinfo = (multiboot_info_t *) ebx;
@@ -39,6 +39,7 @@ int kmain(unsigned int ebx)
   		serial_write(0x3F8,message,sizeof(message));
   	}
 		
+
 	return 0;
 
 }
