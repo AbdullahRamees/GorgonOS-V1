@@ -4,7 +4,7 @@
 
 #include "serial.h"
 #include "keyboard.h"
-
+#include "paging.h"
 
 #define INTERRUPTS_DESCRIPTOR_COUNT 256 
 #define INTERRUPTS_KEYBOARD 33 
@@ -75,6 +75,9 @@ void interrupt_handler(__attribute__((unused)) struct cpu_state cpu, unsigned in
 
 			break;
 		
+		case INTERRUPTS_PAGING:
+			page_fault();	
+			break;
 		default:
 			break;
     }
