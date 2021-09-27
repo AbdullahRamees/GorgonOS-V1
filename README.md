@@ -1,12 +1,12 @@
 # littleOS
-Début d'implementaiton du little book about OS development http://littleosbook.github.io/
+this implementaiton with little book about OS development http://littleosbook.github.io/
 
 ## 2. First Step
 - loader.s
 - grub 
 - geniso
 
-- utilisation de qemu au lieu de bosh : 
+- utilisation of qemu au bosh : 
 qemu-system-x86_64 -boot d -cdrom os.iso -m 4 -monitor stdio
 
 - commande monitor : info registers 
