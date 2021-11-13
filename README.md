@@ -6,7 +6,7 @@ this implementaiton with little book about OS development http://littleosbook.gi
 - grub 
 - geniso
 
-- utilisation of qemu au bosh : 
+- utilisation of qemu
 qemu-system-x86_64 -boot d -cdrom os.iso -m 4 -monitor stdio
 
 - commande monitor : info registers 
